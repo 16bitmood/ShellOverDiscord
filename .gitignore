@@ -1,0 +1,7 @@
+# Files
+users.csv
+.env
+
+# Directories
+.temp/
+__pycache__/

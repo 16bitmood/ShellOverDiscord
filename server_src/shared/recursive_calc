@@ -1,0 +1,52 @@
+#!/usr/bin/env python
+# https://github.com/CodeRic28
+
+def brac(exp):
+    while "(" in exp:
+        c_brac = o_pos = exp.index(")")
+        while exp[o_pos] != "(":
+            o_pos -= 1
+        o_brac = o_pos
+        brac_exp = exp[o_brac+1 : c_brac]
+        exp = exp[:o_brac] + str(evaluate(brac_exp)) + exp[c_brac + 1:]
+    return evaluate(exp)
+
+def evaluate(exp):
+    if "+" in exp:
+        pos_op = exp.find("+")
+        left = exp.split("+")[0]
+        right = exp[pos_op + 1:]
+        return evaluate(left) + evaluate(right)
+    elif "-" in exp:
+        pos_op = exp.find("-")
+        left = exp.split("-")[0]
+        if left == '':
+            left = '0'
+        right = exp[pos_op + 1:]
+        return evaluate(left) - evaluate(right)
+    elif "/" in exp:
+        pos_op = exp.find("/")
+        left = exp.split("/")[0]
+        right = exp[pos_op + 1:]
+        return evaluate(left) / evaluate(right)
+    elif "*" in exp:
+        pos_op = exp.find("*")
+        left = exp.split("*")[0]
+        right = exp[pos_op + 1:]
+        return evaluate(left) * evaluate(right)
+    elif "^" in exp:
+        pos_op = exp.find("^")
+        left = exp.split("^")[0]
+        right = exp[pos_op + 1:]
+        return evaluate(left) ** evaluate(right)
+    else:
+        # Base Case
+        #print("Execution completed")
+        return int(exp)
+
+
+inp = input("Enter an expression: ")
+if "(" in inp:
+    print(brac(inp))
+else:
+    print(evaluate(inp))

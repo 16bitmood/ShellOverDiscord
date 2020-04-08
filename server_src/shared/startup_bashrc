@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+disc_name=$(grep  $(whoami) /app/users.csv | cut -d',' -f2 )
+export PS1='[$disc_name@\h \W]$ '
+export PATH=$PATH:/app/shared/
